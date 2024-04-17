@@ -1,0 +1,2 @@
+//on windows, use this (https://stackoverflow.com/questions/69027224/the-nvmrc-file-is-not-read)
+nvm use `cat .nvmrc`

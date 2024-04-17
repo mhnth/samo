@@ -8,16 +8,16 @@ export default function Header() {
   const [_, setOpenSidebar] = useAtom(openSidebarModalAtom);
 
   return (
-    <header className="bg-slate-50 py-2">
+    <header className="flex items-center bg-slate-50 py-2 shadow">
       <div className="hidden md:block">Logo</div>
-      <div
-        className="cursor-pointer md:hidden"
+      <span
+        className="inline-block w-max cursor-pointer md:hidden"
         onClick={(e) => {
           setOpenSidebar(true);
         }}
       >
         <IMenu />
-      </div>
+      </span>
     </header>
   );
 }

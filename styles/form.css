@@ -16,3 +16,14 @@ input[type='number'] {
 .i-form_input {
   @apply bg-grey-300 px-3 py-2 outline-none;
 }
+
+.input {
+  @apply mt-1 flex w-full items-center rounded-md border border-gray-200 bg-gray-100 px-4 py-2 text-gray-800;
+
+  &:focus-visible,
+  &:focus {
+    @apply outline-primary-400;
+    outline-width: 2px;
+    outline-style: solid;
+  }
+}
