@@ -7,7 +7,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'center' | 'left' | 'right';
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Backdrop: React.FC<ModalProps> = ({
   children,
   onOutSideClick,
   // variant = 'left',

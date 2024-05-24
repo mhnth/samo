@@ -6,3 +6,4 @@ export * from './budget';
 export * from './transaction';
 export * from './moneycollect';
 export * from './link';
+export * from './logo';

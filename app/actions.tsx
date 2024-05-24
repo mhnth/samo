@@ -1,15 +1,16 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
 import { z } from 'zod';
 import prisma from '@/lib/prismadb';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { getServerUser } from '@/lib/getServerUser';
+import { TAGS } from '@/lib/api/constants';
 
 export async function createBudget(
   prevState: { message: string },
   formData: FormData,
 ) {
-  const user = await getServerSession();
+  const user = await getServerUser();
 
   const schema = z.object({
     name: z.string(),
@@ -28,7 +29,7 @@ export async function createBudget(
     description: formData.get('description'),
   });
 
-  if (!parse.success || !user?.user?.email) {
+  if (!parse.success || !user?.email) {
     return { message: 'Failed to create Budget!' };
   }
   const data = parse.data;
@@ -36,7 +37,7 @@ export async function createBudget(
   try {
     await prisma?.user.update({
       where: {
-        email: user.user.email,
+        email: user.email,
       },
       data: {
         budget: {
@@ -49,6 +50,7 @@ export async function createBudget(
       },
     });
 
+    revalidateTag(TAGS.budgets);
     revalidatePath('/');
   } catch (e) {
     console.log('ERROR create Budget:', e);
@@ -57,3 +59,5 @@ export async function createBudget(
 
   return { message: 'Create Budget success! ' };
 }
+
+// export function createTransaction(formData: FormData) {}

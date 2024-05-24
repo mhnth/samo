@@ -7,7 +7,8 @@
 @import 'tailwindcss/utilities';
 
 :root {
-  --foreground-rgb: 0, 0, 0;
+  --foreground-hex: #374151;
+  --link-color: #2563eb;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
@@ -21,15 +22,30 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
-
-  background-color: #ffffff;
+  color: var(--foreground-hex);
+  background-color: #f8fafc;
 
   height: 100vh;
+}
+
+.nav-list {
+  @apply text-base;
+}
+
+.nav-list svg {
+  width: 24px !important;
+}
+
+.nav-list svg path {
+  fill: var(--foreground-hex);
+}
+
+.nav-list .active svg path {
+  fill: var(--link-color);
+  @apply fill-primary-500;
+}
+
+.nav-list .active {
+  color: var(--link-color);
+  @apply text-primary-400;
 }

@@ -8,14 +8,14 @@ export async function GET(req: Request) {
     return Response.json({ error: 'Not found User!' }, { status: 404 });
   }
 
-  const budget = await prisma.user.findUnique({
+  const data = await prisma.user.findUnique({
     where: {
       email: user.email,
     },
     select: {
-      budget: true,
+      category: true,
     },
   });
 
-  return Response.json(budget, { status: 201 });
+  return Response.json(data?.category, { status: 201 });
 }

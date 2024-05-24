@@ -10,7 +10,6 @@ export default async function Page({
 }) {
   const user = await getServerSession();
 
-  console.log('user session', user);
   if (!user) redirect('/signin');
 
   return <h1>My Page</h1>;

@@ -70,7 +70,7 @@ export const Options: NextAuthOptions = {
         user,
       );
       if (session?.user) {
-        session.user.name = token.email;
+        session.user.name = 'hallo';
       }
       return session;
     },

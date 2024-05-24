@@ -1,4 +1,5 @@
 import { TAGS } from './constants';
+import { type Budget } from '@prisma/client';
 
 type ExtractVariables<T> = T extends { variables: object }
   ? T['variables']
@@ -92,11 +93,24 @@ export async function createBudget(data: CreateBudgetData) {
   await customFetch<CreateBudgetData>({ path: '/budget', body: data });
 }
 
-export async function getBudgets(handle: string) {
+export async function getBudgets() {
   const res = await customFetch({
+    path: '/budget',
     method: 'GET',
     tags: [TAGS.budgets],
+    // cache: 'no-cache',
   });
 
-  return res;
+  return res.res;
+}
+
+export async function getTransaction() {
+  const res = await customFetch({
+    path: '/transaction',
+    method: 'GET',
+    tags: [TAGS.transaction],
+    // cache: 'no-cache',
+  });
+
+  return res.res;
 }

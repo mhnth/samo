@@ -4,10 +4,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  console.log('here', body);
   const { name, email, password } = body;
-
-  console.log(name, email, password);
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
