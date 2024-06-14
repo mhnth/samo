@@ -3,18 +3,19 @@
 import { formatCurrency } from '@/lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
+import { type Budget } from '@prisma/client';
 
-interface Budget {
-  id: string;
-  name: string;
-  targetAmount: number;
-  amountUsed: number | null;
-  amountRemaining: number | null;
-  description: string | null;
-  isActive: boolean;
-  createAt: Date;
-  ownerId: string;
-}
+// interface Budget {
+//   id: string;
+//   name: string;
+//   targetAmount: number;
+//   amountUsed: number | null;
+//   amountRemaining: number | null;
+//   description: string | null;
+//   isActive: boolean;
+//   createAt: Date;
+//   ownerId: string;
+// }
 
 interface BudgetUIProps {
   budgets: Budget[] | null;
@@ -22,7 +23,6 @@ interface BudgetUIProps {
 
 export const BudgetUI: React.FC<BudgetUIProps> = (props) => {
   const [budgets, setBudgets] = useState<Budget[] | null>(props.budgets);
-  // const { budgets } = props;
 
   const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked && props.budgets) {
@@ -51,9 +51,10 @@ export const BudgetUI: React.FC<BudgetUIProps> = (props) => {
       </div>
       <div className="mt-4">
         {budgets &&
-          (budgets as any[]).map((b, i) => {
+          budgets.map((b, i) => {
             return (
-              <div
+              <Link
+                href={`/budget/${b.id}/edit`}
                 className="mt-3 rounded-md border border-transparent bg-white shadow hover:border-primary-500"
                 key={i}
               >
@@ -81,7 +82,7 @@ export const BudgetUI: React.FC<BudgetUIProps> = (props) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
       </div>

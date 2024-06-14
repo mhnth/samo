@@ -17,7 +17,6 @@ export function useBudgets(): FetchState {
     setLoading(true);
     try {
       const res = await getBudgets();
-      console.log('hook', res);
 
       setData(res.budget);
     } catch (error) {

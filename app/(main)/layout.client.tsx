@@ -1,19 +1,17 @@
-'use client';
-
 import Header from '@/components/header';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Modal } from '@/components/modal';
+import { getBudgetCategory } from '@/lib/query';
 
-export default function AppLayoutClient({
+export default async function AppLayoutClient({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const isBreakPoint = useMediaQuery('768px');
+  const data = await getBudgetCategory();
 
   return (
     <>
-      <Modal />
+      <Modal budgets={data?.budget} categories={data?.category} />
       <Header />
       <div className="md:flex md:gap-4">
         <div className="md:grow">{children}</div>

@@ -1,18 +1,39 @@
+'use client';
+
 import { modalAtom } from '@/hooks/jotai';
-import { useAtom } from 'jotai';
-import React from 'react';
-import TransactionModal from './add-transaction-modal';
 import SidebarModal from './sidebar-modal';
+import { TransactionModal } from './add-transaction-modal';
+import { useAtom } from 'jotai';
+import { Budget, Category } from '@prisma/client';
 
-interface ModalProps {}
+interface ModalProps {
+  budgets: Budget[] | undefined;
+  categories: Category[] | undefined;
+}
 
-export const Modal: React.FC<ModalProps> = ({}) => {
+export const Modal: React.FC<ModalProps> = ({ budgets, categories }) => {
   const [modal, setModalView] = useAtom(modalAtom);
-  return (
-    <>
-      {modal &&
-        ((modal.view === 'sidebar' && <SidebarModal />) ||
-          (modal.view === 'transaction' && <TransactionModal />))}
-    </>
-  );
+
+  if (!modal) return null;
+
+  switch (modal.view) {
+    case 'sidebar':
+      return <SidebarModal />;
+    case 'transaction':
+      return <TransactionModal budgets={budgets} categories={categories} />;
+    default:
+      <div></div>;
+      break;
+  }
+
+  // return (
+  //   <>
+  //     {/* {modal && */}
+  //     {(modal.view === 'sidebar' && <SidebarModal />) ||
+  //       (modal.view === 'transaction' && (
+  //         <TransactionModal budgets={budgets} categories={categories} />
+  //       ))}
+  //     {/* } */}
+  //   </>
+  // );
 };

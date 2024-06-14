@@ -4,7 +4,6 @@ import React, { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { Spinner } from '@/components/ui';
 import { signIn } from 'next-auth/react';
-import { api } from '@/lib/custom-api';
 
 export const SignupForm: React.FC = () => {
   const [userData, setUserData] = useState({
@@ -20,29 +19,37 @@ export const SignupForm: React.FC = () => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  const handleSignUp = async () => {
+    try {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to sign up');
+      }
+
+      const res = await response.json();
+
+      await signIn('credentials', {
+        email: userData.email,
+        password: userData.password,
+        redirect: true,
+        callbackUrl: '/',
+      });
+    } catch (err) {
+      console.log('ERROR Sign Up:', err);
+      setErr(err as string);
+    }
+  };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const signUpData = {
-      name: userData.name,
-      email: userData.email,
-      password: userData.password,
-    };
-
-    api
-      .call('/api/signup', signUpData)
-      .then((res) => {
-        signIn('credentials', {
-          email: signUpData.email,
-          password: signUpData.password,
-          redirect: true,
-          callbackUrl: '/',
-        });
-      })
-      .catch((err) => {
-        console.log('ERROR Sign Up:', err);
-        setErr(err.message);
-      });
+    handleSignUp();
   };
 
   return (

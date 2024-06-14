@@ -28,8 +28,8 @@ export const SignInForm: React.FC = () => {
         redirect: true,
         callbackUrl: '/',
       });
-    } catch {
-      console.log('Error while logging in');
+    } catch (e) {
+      console.log('Error while logging in:', e);
     }
   };
 
