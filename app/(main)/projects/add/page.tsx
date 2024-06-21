@@ -1,7 +1,7 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
-import { createBudget } from '@/lib/actions';
+import { useFormState } from 'react-dom';
+import { createProject } from '@/lib/actions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -11,19 +11,19 @@ const initialState = {
   isOk: false,
 };
 
-export default function AddBudgetPage() {
-  const [state, formAction] = useFormState(createBudget, initialState);
+export default function AddProjectPage() {
+  const [state, formAction] = useFormState(createProject, initialState);
   const router = useRouter();
 
   useEffect(() => {
     if (state.message !== '') {
-      router.push('/budget');
+      router.push('/projects');
     }
   });
 
   return (
     <div className="mx-auto mt-6 max-w-lg px-4">
-      <span className="font-semibold">Thêm danh mục</span>
+      <span className="text-xl">Tạo kế hoạch tài chính</span>
       <form
         action={(f) => {
           formAction(f);
@@ -34,14 +34,14 @@ export default function AddBudgetPage() {
             htmlFor="name"
             className="text-sm font-semibold text-slate-700"
           >
-            Tên ngân sách
+            Tên
           </label>
           <input
             className="input"
             id="name"
             name="name"
             type="text"
-            placeholder="Chi tiêu hàng tháng"
+            placeholder="Kì nghỉ"
             required
           />
         </div>
@@ -57,7 +57,7 @@ export default function AddBudgetPage() {
             id="targetAmount"
             name="targetAmount"
             type="number"
-            placeholder="100 000 000"
+            placeholder="20 000"
             required
           />
         </div>
@@ -75,7 +75,7 @@ export default function AddBudgetPage() {
           />
         </div>
         <div className="mt-8 flex items-center justify-end gap-4">
-          <Link className="font-semibold text-slate-500" href={'/budget'}>
+          <Link className="font-semibold text-slate-500" href={'/projects'}>
             Hủy
           </Link>
           <button

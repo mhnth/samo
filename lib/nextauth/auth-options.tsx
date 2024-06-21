@@ -70,7 +70,9 @@ export const Options: NextAuthOptions = {
         user,
       );
       if (session?.user) {
-        session.user.name = 'hallo';
+        // session.user.name = 'hallo';
+        session.user.image =
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqzuTEj0AfQvO5i3eDKbGV7JmE3LJ_GC2kIw&s';
       }
       return session;
     },

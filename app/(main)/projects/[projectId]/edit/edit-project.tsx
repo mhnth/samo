@@ -1,21 +1,20 @@
 'use client';
 
-import { Budget } from '@prisma/client';
+import { FinancialProject } from '@prisma/client';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
-import { deleteBudget, updateBudget } from '@/lib/actions';
+import { deleteProject, updateProject } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
 interface EditBudgetProps {
-  budget: Budget;
+  project: FinancialProject;
 }
 
-interface BudgetState {
+interface ProjectState {
   name: string;
   targetAmount: number;
   description?: string;
-  isActive: boolean;
 }
 
 const initialState = {
@@ -23,14 +22,13 @@ const initialState = {
   isOk: false,
 };
 
-export const EditBudget: React.FC<EditBudgetProps> = ({ budget }) => {
-  const [formState, formAction] = useFormState(updateBudget, initialState);
+export const EditProject: React.FC<EditBudgetProps> = ({ project }) => {
+  const [formState, formAction] = useFormState(updateProject, initialState);
   const router = useRouter();
-  const [state, setState] = useState<BudgetState>({
-    name: budget.name,
-    description: budget.description || '',
-    targetAmount: budget.targetAmount,
-    isActive: true,
+  const [state, setState] = useState<ProjectState>({
+    name: project.name,
+    description: project.description || '',
+    targetAmount: project.targetAmount,
   });
 
   const handleChange = (
@@ -45,16 +43,16 @@ export const EditBudget: React.FC<EditBudgetProps> = ({ budget }) => {
 
   useEffect(() => {
     if (formState.isOk === true) {
-      router.push('/budget');
+      router.push('/projects');
     }
   }, [formState]);
 
   return (
     <div className="mx-auto mt-6 w-5/6 max-w-xl rounded-md bg-white p-6 shadow-md md:mt-24">
-      <span className="mb-6 text-xl">Chỉnh sửa danh mục</span>
+      <span className="mb-6 text-xl">Chỉnh sửa dự án</span>
       <form
         action={async (f) => {
-          f.append('budgetId', budget.id);
+          f.append('projectId', project.id);
           formAction(f);
         }}
       >
@@ -63,7 +61,7 @@ export const EditBudget: React.FC<EditBudgetProps> = ({ budget }) => {
             htmlFor="name"
             className="text-sm font-semibold text-slate-700"
           >
-            Tên ngân sách
+            Tên
           </label>
           <input
             className="input"
@@ -109,25 +107,20 @@ export const EditBudget: React.FC<EditBudgetProps> = ({ budget }) => {
             id="description"
           />
         </div>
-        <div>
-          <label className="mt-4 flex gap-2">
-            <input type="checkbox" name="" id="" />
-            <span>Đóng ngân sách</span>
-          </label>
-        </div>
+
         <div className="mt-8 flex items-center justify-end gap-4">
           <button
             className="mr-auto rounded-md bg-red-200 px-6 py-1 font-semibold text-red-500 
             hover:bg-red-400 hover:text-white"
             onClick={async (e) => {
               e.preventDefault();
-              await deleteBudget(budget.id);
-              router.push('/budget');
+              await deleteProject(project.id);
+              router.push('/projects');
             }}
           >
             Xoá
           </button>
-          <Link className="font-semibold text-slate-500" href={'/budget'}>
+          <Link className="font-semibold text-slate-500" href={'/projects'}>
             Hủy
           </Link>
           <button

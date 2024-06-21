@@ -17,7 +17,7 @@ export const Backdrop: React.FC<ModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 flex bg-black/30 backdrop-blur-3xl"
+      className="fixed inset-0 z-10 flex bg-black/30 backdrop-blur-3xl"
       onClick={() => onOutSideClick()}
       {...props}
     >

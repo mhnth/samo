@@ -4,11 +4,7 @@ import { modalAtom } from '@/hooks/jotai';
 import { useAtom } from 'jotai';
 import React from 'react';
 
-interface AddTransactionButtonProps {}
-
-export const AddTransactionButton: React.FC<
-  AddTransactionButtonProps
-> = ({}) => {
+export const AddTransactionButton: React.FC = () => {
   const [_, setModalView] = useAtom(modalAtom);
 
   return (

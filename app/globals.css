@@ -28,6 +28,17 @@ body {
   height: 100vh;
 }
 
+input[type='rane']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #4caf50;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-top: -5px; /* To center the thumb with the track */
+}
+
 .nav-list {
   @apply text-base;
 }
@@ -48,4 +59,23 @@ body {
 .nav-list .active {
   color: var(--link-color);
   @apply text-primary-400;
+}
+
+.bar-chart {
+  @apply max-h-[300px] w-11/12 max-w-3xl !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 5px grey; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #93c5fd;
 }

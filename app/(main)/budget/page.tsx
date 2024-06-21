@@ -1,5 +1,5 @@
 import BudgetUI from '@/components/budget';
-import { getBudgetCategory } from '@/lib/query';
+import { getBudgetWithTotals } from '@/lib/queries';
 
 export default async function BudgetPage({
   params,
@@ -8,7 +8,7 @@ export default async function BudgetPage({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const data = await getBudgetCategory();
+  const data = await getBudgetWithTotals();
 
-  return <BudgetUI budgets={data?.budget || null} />;
+  return <BudgetUI budgets={data || null} />;
 }

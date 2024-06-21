@@ -1,3 +1,13 @@
+export const TAGS = {
+  all: 'all',
+  budget_category: 'budget_category',
+  budget: 'budget',
+  category: 'category',
+  transactions: 'transactions',
+  budgetWithTotals: 'budget_with_totals',
+  project: 'project',
+};
+
 export const emojiCategories = [
   '🍔',
   '🍕',

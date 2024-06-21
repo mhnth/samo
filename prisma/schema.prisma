@@ -16,12 +16,14 @@ model User {
   name                    String
   email                   String                   @unique
   password                String
+  image                   String?
   budget                  Budget[]
   category                Category[]
   transaction             Transaction[]
   financialProject        FinancialProject[]
   sharedFincancialProject SharedFinancialProject[]
   resource                Resource[]
+  Contribution            Contribution[]
 }
 
 model Budget {
@@ -53,7 +55,7 @@ model Transaction {
   owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     String   @db.ObjectId
   budget      Budget?  @relation(fields: [budgetId], references: [id])
-  budgetId    String   @db.ObjectId
+  budgetId    String?  @db.ObjectId
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String   @db.ObjectId
   amount      Float
@@ -67,11 +69,13 @@ model FinancialProject {
   ownerId                 String                   @db.ObjectId
   name                    String
   targetAmount            Float
-  amountSaved             Float
-  status                  String // progres or completed
-  startAt                 DateTime
-  endAt                   DateTime
+  amountSaved             Float?
+  description             String?
+  status                  String? // progres or completed
+  startAt                 DateTime?
+  endAt                   DateTime?
   sharedFincancialProject SharedFinancialProject[]
+  Contribution            Contribution[]
 }
 
 model SharedFinancialProject {
@@ -87,4 +91,15 @@ model Resource {
   link    String
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String @db.ObjectId
+}
+
+model Contribution {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Float
+  description String?
+  owner       User             @relation(fields: [ownerId], references: [id])
+  ownerId     String           @db.ObjectId
+  project     FinancialProject @relation(fields: [projectId], references: [id])
+  projectId   String           @db.ObjectId
+  createAt    DateTime         @default(now())
 }

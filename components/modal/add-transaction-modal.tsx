@@ -6,7 +6,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { emojiCategories } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import { Backdrop } from './backdrop';
-import { createTransaction } from '@/app/actions';
+import { createTransaction } from '@/lib/actions';
 import { type Category, type Budget } from '@prisma/client';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Spinner } from '../ui';
@@ -39,12 +39,17 @@ export const TransactionModal: FC<TransactionModalProps> = ({
   budgets,
   categories,
 }) => {
+  const initialCat =
+    categories && categories?.length > 1 ? categories[0].id : 'addNew';
+
   const [_, setModalView] = useAtom(modalAtom);
 
   const [state, formAction] = useFormState(createTransaction, initialState);
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('addNew');
-  const [budgetId, setBudgetId] = useState<string>(budgets![0].id);
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCat);
+  const [budgetId, setBudgetId] = useState<string>(
+    budgets ? budgets[0]?.id : '',
+  );
 
   const [selectedEmoji, setSelectedEmoji] = useState(emojiCategories[0]);
   const [openEmoji, setOpenEmoji] = useState<boolean>(false);
@@ -158,7 +163,7 @@ export const TransactionModal: FC<TransactionModalProps> = ({
                       {selectedEmoji || emojiCategories[0]}
                     </div>
                     <input
-                      className="w-auto rounded-md bg-gray-400 p-2.5 text-gray-900 placeholder:text-gray-600"
+                      className="w-auto grow rounded-md bg-gray-400 p-2.5 text-gray-900 placeholder:text-gray-600"
                       type="text"
                       placeholder="ăn uống"
                       onChange={handleChangeNewCategory}

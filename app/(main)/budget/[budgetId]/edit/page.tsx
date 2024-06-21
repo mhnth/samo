@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { EditBudget } from './edit-budget';
 
 const initialState = {
@@ -18,8 +17,6 @@ export default async function AddBudgetPage({
   const data = await prisma?.budget.findUnique({ where: { id: budgetId } });
 
   if (!data) return <div>Không tìm thấy budget</div>;
-
-  console.log('budgetId', data);
 
   return <EditBudget budget={data} />;
 }

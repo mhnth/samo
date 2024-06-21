@@ -80,11 +80,11 @@ export default function SidebarModal() {
             </Link>
           </li>
           <li>
-            <Link href={'/transaction'}>
+            <Link href={'/projects'}>
               <div
                 onClick={() => handleClickLink(3)}
                 className={cx(
-                  path === '' && 'active',
+                  path === '/projects' && 'active',
                   'flex w-full cursor-pointer items-center gap-3 p-2 px-4 hover:bg-slate-100',
                 )}
               >
@@ -94,11 +94,11 @@ export default function SidebarModal() {
             </Link>
           </li>
           <li>
-            <Link href={'/transaction'}>
+            <Link href={'/resource'}>
               <div
                 onClick={() => handleClickLink(4)}
                 className={cx(
-                  path === '' && 'active',
+                  path === '/resource' && 'active',
                   'flex w-full cursor-pointer items-center gap-3 p-2 px-4 hover:bg-slate-100',
                 )}
               >

@@ -1,6 +1,7 @@
 import Header from '@/components/header';
 import { Modal } from '@/components/modal';
-import { getBudgetCategory } from '@/lib/query';
+import { Sidebar } from '@/components/sidebar';
+import { getBudgetCategory } from '@/lib/queries';
 
 export default async function AppLayoutClient({
   children,
@@ -14,7 +15,8 @@ export default async function AppLayoutClient({
       <Modal budgets={data?.budget} categories={data?.category} />
       <Header />
       <div className="md:flex md:gap-4">
-        <div className="md:grow">{children}</div>
+        <Sidebar />
+        <div className="h-[calc(100vh-48px)] md:grow">{children}</div>
       </div>
     </>
   );
