@@ -22,18 +22,6 @@ export const Modal: React.FC<ModalProps> = ({ budgets, categories }) => {
     case 'transaction':
       return <TransactionModal budgets={budgets} categories={categories} />;
     default:
-      <div></div>;
-      break;
+      return <div></div>;
   }
-
-  // return (
-  //   <>
-  //     {/* {modal && */}
-  //     {(modal.view === 'sidebar' && <SidebarModal />) ||
-  //       (modal.view === 'transaction' && (
-  //         <TransactionModal budgets={budgets} categories={categories} />
-  //       ))}
-  //     {/* } */}
-  //   </>
-  // );
 };
