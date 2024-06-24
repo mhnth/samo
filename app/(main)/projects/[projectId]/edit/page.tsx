@@ -1,5 +1,3 @@
-import { Input } from '@/components/ui';
-import Link from 'next/link';
 import { EditProject } from './edit-project';
 
 const initialState = {

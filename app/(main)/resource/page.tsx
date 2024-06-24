@@ -1,4 +1,3 @@
-import { getLinkPreview, getPreviewFromContent } from 'link-preview-js';
 import { AddLinkForm } from './add-link-form';
 import { getResources } from '@/lib/queries';
 import Link from 'next/link';

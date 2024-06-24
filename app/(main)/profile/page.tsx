@@ -4,13 +4,7 @@ import ILogout from '@/components/icons/logout';
 import ISave from '@/components/icons/save';
 import { signOut } from 'next-auth/react';
 
-export default function Page({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default function Page() {
   const handleLogout = async () => {
     await fetch('/api/revalidate', { method: 'POST' });
     signOut();
