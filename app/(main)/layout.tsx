@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import AppLayoutClient from './layout.client';
 import { getServerUser } from '@/lib/getServerUser';
 import { redirect } from 'next/navigation';
 import Header from '@/components/header';
