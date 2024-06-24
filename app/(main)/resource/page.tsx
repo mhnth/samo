@@ -24,6 +24,7 @@ export default async function Page({
               <Link
                 href={r.link}
                 key={i}
+                target="_blank"
                 className="max-w-[250px] rounded-sm bg-white p-4 shadow-sm"
               >
                 <img
