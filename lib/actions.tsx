@@ -5,7 +5,7 @@ import prisma from '@/lib/prismadb';
 import { revalidateTag } from 'next/cache';
 import { getServerUser } from '@/lib/getServerUser';
 import { TAGS } from '@/lib/constants';
-import { getLinkPreview } from 'link-preview-js';
+import { getLinkPreview } from './getLinkPreview';
 
 export async function createBudget(
   prevState: { message: string; isOk: boolean },
@@ -445,20 +445,14 @@ export const deleteProject = async (projectId: string) => {
 export const createResource = async (url: string) => {
   const user = await getServerUser();
   if (!user) return null;
-  const data = (await getLinkPreview(url)) as {
-    title: string;
-    images: string[];
-    description: string;
-  };
+  const data = await getLinkPreview(url);
 
   const dataResource = {
     link: url,
     title: data.title,
-    image: data.images[0],
+    image: data.image,
     description: data.description,
   };
-
-  console.log('ec', dataResource);
 
   try {
     await prisma.resource.create({

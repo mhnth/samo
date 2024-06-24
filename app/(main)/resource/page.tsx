@@ -10,6 +10,7 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const resources = await getResources();
+
   return (
     <div className="w-full">
       <div className="mx-auto mt-6 max-w-lg bg-white p-4 px-6 shadow-md">

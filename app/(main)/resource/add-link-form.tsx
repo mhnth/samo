@@ -8,13 +8,17 @@ export const AddLinkForm: React.FC = () => {
 
   return (
     <form
-      action={() => createResource(link)}
+      action={async () => {
+        createResource(link);
+        setLink(() => '');
+      }}
       className="flex h-10 items-center gap-2"
     >
       <input
         type="text"
         className="input m-0 h-full px-2"
         placeholder="ex: www.finence.com"
+        value={link}
         onChange={(e) => {
           setLink(() => e.target.value);
         }}
