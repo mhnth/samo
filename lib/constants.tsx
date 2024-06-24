@@ -6,6 +6,7 @@ export const TAGS = {
   transactions: 'transactions',
   budgetWithTotals: 'budget_with_totals',
   project: 'project',
+  resource: 'resource',
 };
 
 export const emojiCategories = [

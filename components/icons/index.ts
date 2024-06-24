@@ -7,3 +7,5 @@ export * from './transaction';
 export * from './moneycollect';
 export * from './link';
 export * from './logo';
+export * from './save';
+export * from './logout';

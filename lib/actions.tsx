@@ -2,15 +2,17 @@
 
 import { z } from 'zod';
 import prisma from '@/lib/prismadb';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { getServerUser } from '@/lib/getServerUser';
 import { TAGS } from '@/lib/constants';
+import { getLinkPreview } from 'link-preview-js';
 
 export async function createBudget(
   prevState: { message: string; isOk: boolean },
   formData: FormData,
 ) {
   const user = await getServerUser();
+  console.log('runn');
 
   const schema = z.object({
     name: z.string(),
@@ -189,7 +191,7 @@ export async function createTransaction(
         amount: data.amount,
         description: data.description || '',
       };
-      if (data.budgetId !== 'undefined') {
+      if (data.budgetId !== 'undefined' && data.budgetId) {
         transactionData.budget = { connect: { id: data.budgetId } };
       }
 
@@ -204,7 +206,7 @@ export async function createTransaction(
           amount: data.amount,
           description: data.description || '',
         };
-        if (data.budgetId !== 'undefined') {
+        if (data.budgetId && data.budgetId !== 'undefined') {
           transactionData.budget = { connect: { id: data.budgetId } };
         }
 
@@ -438,4 +440,38 @@ export const deleteProject = async (projectId: string) => {
 
     return false;
   }
+};
+
+export const createResource = async (url: string) => {
+  const user = await getServerUser();
+  if (!user) return null;
+  const data = (await getLinkPreview(url)) as {
+    title: string;
+    images: string[];
+    description: string;
+  };
+
+  const dataResource = {
+    link: url,
+    title: data.title,
+    image: data.images[0],
+    description: data.description,
+  };
+
+  console.log('ec', dataResource);
+
+  try {
+    await prisma.resource.create({
+      data: {
+        ...dataResource,
+        owner: { connect: { id: user.id } },
+      },
+    });
+
+    revalidateTag(TAGS.resource);
+  } catch (error) {
+    console.log('ERR Prisma create new resource', error);
+  }
+
+  console.log('links', dataResource);
 };

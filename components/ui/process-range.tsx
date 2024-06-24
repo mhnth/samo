@@ -16,10 +16,19 @@ export const ProcessRange: React.FC<ProcessRangeProps> = ({
   const percent = ((current / total) * 100).toFixed(0);
 
   return (
-    <div className={cx('relative z-0 h-3 w-full bg-gray-100', props.className)}>
+    <div
+      className={cx(
+        'relative z-0 h-3 w-full bg-pink-200',
+        type === 'red' ? 'bg-pink-100' : 'bg-teal-200',
+        props.className,
+      )}
+    >
       <div
         style={{ width: percent + '%' }}
-        className={cx(`absolute top-0 h-3 bg-red-500`)}
+        className={cx(
+          `absolute top-0 h-3 max-w-full`,
+          type === 'red' ? 'bg-pink-400' : 'bg-teal-500',
+        )}
       ></div>
     </div>
   );

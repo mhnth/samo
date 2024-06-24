@@ -220,3 +220,20 @@ export const getDashboardData = unstable_cache(
     tags: [TAGS.all],
   },
 );
+
+export const getResources = unstable_cache(
+  async () => {
+    const user = await getServerUser();
+    if (!user) return null;
+
+    const resources = await prisma.resource.findMany({
+      where: {
+        ownerId: user.id,
+      },
+    });
+
+    return resources;
+  },
+  ['resource'],
+  { tags: [TAGS.resource] },
+);

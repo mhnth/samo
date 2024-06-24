@@ -87,10 +87,13 @@ model SharedFinancialProject {
 }
 
 model Resource {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  link    String
-  owner   User   @relation(fields: [ownerId], references: [id])
-  ownerId String @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  link        String
+  title       String?
+  image       String?
+  description String?
+  owner       User    @relation(fields: [ownerId], references: [id])
+  ownerId     String  @db.ObjectId
 }
 
 model Contribution {

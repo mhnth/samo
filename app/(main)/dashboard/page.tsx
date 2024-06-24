@@ -10,6 +10,8 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const dataChart = await getDashboardData();
+  console.log('data chart', dataChart);
+
   const transaction = await getTransactions();
 
   return (

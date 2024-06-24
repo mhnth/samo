@@ -79,3 +79,7 @@ input[type='rane']::-webkit-slider-thumb {
 ::-webkit-scrollbar-thumb {
   background: #93c5fd;
 }
+
+.resource-grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
